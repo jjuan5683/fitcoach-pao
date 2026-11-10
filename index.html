@@ -18,7 +18,7 @@
 <style>
 :root{
   --bg:#fafaf7; --surface:#ffffff; --surface-2:#f1efe9; --line:#d9d5cc;
-  --text:#1a1a1a; --muted:#4f4f4f; --accent:#facc15; --accent-text:#111111; --accent-ink:#854d0e; --accent-line:#a16207; --chart:#a16207; --fit:#52525b; --swoosh:#111111;
+  --text:#1a1a1a; --muted:#4f4f4f; --accent:#c2410c; --accent-text:#ffffff; --accent-ink:#9a3412; --accent-line:#9a3412; --chart:#c2410c; --navy:#0f2742; --wm-op:.07; --fit:#52525b; --swoosh:#111111;
   --ok:#1d6b35; --ok-bg:#e6f4ea; --warn:#7a4f00; --warn-bg:#fdf1d8; --bad:#a61b1b; --bad-bg:#fde8e8;
   --focus:#1d4ed8; --shadow:0 1px 2px rgba(0,0,0,.06),0 2px 8px rgba(0,0,0,.05);
   --radius:14px; --fs:18px; color-scheme:light;
@@ -26,22 +26,22 @@
 @media (prefers-color-scheme: dark){
   :root:not([data-theme="light"]):not([data-theme="sun"]){
     --bg:#141414; --surface:#1f1f1f; --surface-2:#2a2a2a; --line:#3a3a3a;
-    --text:#f3f3f3; --muted:#c4c4c4; --accent:#facc15; --accent-text:#111111; --accent-ink:#fde047; --accent-line:#facc15; --chart:#facc15; --fit:#a1a1aa; --swoosh:#e4e4e7;
+    --text:#f3f3f3; --muted:#c4c4c4; --accent:#fb923c; --accent-text:#111111; --accent-ink:#fdba74; --accent-line:#fb923c; --chart:#fb923c; --navy:#0b1a2e; --wm-op:.09; --fit:#a1a1aa; --swoosh:#e4e4e7;
     --ok:#7bd39a; --ok-bg:#16301f; --warn:#f3c76b; --warn-bg:#33280f; --bad:#ff9b9b; --bad-bg:#3a1717;
     --focus:#93b4ff; --shadow:none; color-scheme:dark;
   }
 }
 :root[data-theme="dark"]{
   --bg:#141414; --surface:#1f1f1f; --surface-2:#2a2a2a; --line:#3a3a3a;
-  --text:#f3f3f3; --muted:#c4c4c4; --accent:#facc15; --accent-text:#111111; --accent-ink:#fde047; --accent-line:#facc15; --chart:#facc15; --fit:#a1a1aa; --swoosh:#e4e4e7;
+  --text:#f3f3f3; --muted:#c4c4c4; --accent:#fb923c; --accent-text:#111111; --accent-ink:#fdba74; --accent-line:#fb923c; --chart:#fb923c; --navy:#0b1a2e; --wm-op:.09; --fit:#a1a1aa; --swoosh:#e4e4e7;
   --ok:#7bd39a; --ok-bg:#16301f; --warn:#f3c76b; --warn-bg:#33280f; --bad:#ff9b9b; --bad-bg:#3a1717;
   --focus:#93b4ff; --shadow:none; color-scheme:dark;
 }
 :root[data-size="grande"]{ --fs:20px; }
-:root{--t-easy:#15803d;--t-runwalk:#0f766e;--t-long:#c2410c;--t-strength:#7c3aed;--t-walk:#2563eb;--t-cross:#0e7490;--t-rest:#6b7280;--t-race:#b45309;--limb:#1f2937;
-  --hero-a:#27272a;--hero-b:#09090b}
-@media (prefers-color-scheme: dark){:root:not([data-theme="light"]):not([data-theme="sun"]){--limb:#e5e7eb;--hero-a:#27272a;--hero-b:#000000}}
-:root[data-theme="dark"]{--limb:#e5e7eb;--hero-a:#27272a;--hero-b:#000000}
+:root{--t-easy:#15803d;--t-runwalk:#0f766e;--t-long:#b45309;--t-strength:#7c3aed;--t-walk:#2563eb;--t-cross:#0e7490;--t-rest:#6b7280;--t-race:#be123c;--limb:#1f2937;
+  --hero-a:#16365c;--hero-b:#07111f}
+@media (prefers-color-scheme: dark){:root:not([data-theme="light"]):not([data-theme="sun"]){--limb:#e5e7eb;--hero-a:#13304f;--hero-b:#040a14}}
+:root[data-theme="dark"]{--limb:#e5e7eb;--hero-a:#13304f;--hero-b:#040a14}
 *{box-sizing:border-box}
 html{-webkit-text-size-adjust:100%;text-size-adjust:100%}
 body{margin:0;background:var(--bg);color:var(--text);font:500 var(--fs)/1.5 -apple-system,BlinkMacSystemFont,"Segoe UI",Roboto,"Helvetica Neue",Arial,sans-serif;
@@ -55,12 +55,21 @@ header.top{position:sticky;top:0;z-index:10;background:var(--bg);border-bottom:1
   padding:calc(8px + env(safe-area-inset-top)) 16px 8px;display:flex;align-items:center;justify-content:space-between;gap:8px}
 .brand{display:flex;align-items:center;gap:8px;text-decoration:none;color:var(--text)}
 .brand svg{height:30px;width:auto;display:block}
-.brand .mascot{height:44px;width:44px;margin-right:-4px;flex:none;object-fit:contain;border-radius:8px}
-.brand .wm{height:46px;width:auto}
+.brand .mascot{height:52px;width:auto;max-width:150px;flex:none;object-fit:contain;display:block}
+.top-actions{display:flex;align-items:center;gap:8px}
+.iconbtn{width:48px;height:48px;min-height:48px;padding:0;border-radius:50%;background:var(--surface);color:var(--text);border:2px solid var(--line)}
+.iconbtn svg{width:22px;height:22px}
+.iconbtn.spin svg{animation:spin 1s linear infinite}
+@keyframes spin{to{transform:rotate(360deg)}}
+/* Marca de agua: el escudo fijo detrás del contenido */
+body::before{content:"";position:fixed;inset:0;z-index:0;pointer-events:none;background:url("./logo.webp") center 55%/min(88vw,560px) auto no-repeat;opacity:var(--wm-op)}
+main,header.top,nav.tabs,#updateBar{position:relative;z-index:1}
+header.top{position:sticky;z-index:10}
+nav.tabs{position:fixed;z-index:20}
 .hero img.mascot-bg{object-fit:contain}
 .photo{width:100%;height:auto;border-radius:10px;display:block;background:#2b2f26}
 .photo-note{font-size:.8em;color:var(--muted);margin:4px 0 0}
-.avatar{width:48px;height:48px;border-radius:50%;display:inline-flex;align-items:center;justify-content:center;background:var(--accent);color:var(--accent-text);
+.avatar{width:48px;height:48px;border-radius:50%;display:inline-flex;align-items:center;justify-content:center;background:var(--hero-a);color:#fff;
   font-weight:900;font-size:1.1em;text-decoration:none;border:3px solid var(--surface);box-shadow:0 0 0 2px var(--accent-line)}
 .avatar[aria-current="page"]{box-shadow:0 0 0 3px var(--focus)}
 .avatar svg{width:24px;height:24px}
@@ -149,16 +158,16 @@ nav.tabs a[aria-current="page"] svg{stroke-width:2.6}
 .stepper input{text-align:center;max-width:110px}
 .stepper button{min-width:48px;padding:0}
 .hero{position:relative;overflow:hidden;border-radius:20px;padding:18px 16px 14px;margin:0 0 14px;color:#fff;
-  background:radial-gradient(120% 90% at 100% 0%,rgba(250,204,21,.28),transparent 55%),linear-gradient(135deg,var(--hero-a),var(--hero-b))}
+  background:radial-gradient(120% 90% at 100% 0%,rgba(249,115,22,.30),transparent 55%),linear-gradient(135deg,var(--hero-a),var(--hero-b))}
 .hero h1{color:#fff;margin:0 0 2px;font-size:1.45em;padding-right:92px}
 .hero .sub{margin:0 0 12px;opacity:.95;font-weight:600;padding-right:92px}
 .hero{--limb:#e5e7eb}
-.hero .mascot-bg{position:absolute;right:-14px;top:-8px;width:120px;height:120px;opacity:.95;pointer-events:none}
+.hero .mascot-bg{position:absolute;right:8px;top:10px;width:108px;height:75px;opacity:.95;pointer-events:none}
 .hero-grid{display:flex;gap:14px;align-items:center}
 .ring{position:relative;width:104px;height:104px;flex:none}
 .ring svg{width:100%;height:100%;transform:rotate(-90deg)}
 .ring .trk{stroke:rgba(255,255,255,.25)}
-.ring .val{stroke:#facc15;stroke-linecap:round;transition:stroke-dashoffset 1s cubic-bezier(.2,.8,.2,1)}
+.ring .val{stroke:#fb923c;stroke-linecap:round;transition:stroke-dashoffset 1s cubic-bezier(.2,.8,.2,1)}
 .ring .lbl{position:absolute;inset:0;display:flex;flex-direction:column;align-items:center;justify-content:center;line-height:1.05;text-align:center}
 .ring .lbl b{font-size:1.45em}
 .ring .lbl span{font-size:.7em;font-weight:700;opacity:.95}
@@ -167,7 +176,7 @@ nav.tabs a[aria-current="page"] svg{stroke-width:2.6}
 .strip{list-style:none;margin:14px 0 0;padding:0;display:grid;grid-template-columns:repeat(7,1fr);gap:4px;text-align:center}
 .strip li{font-size:.72em;font-weight:800;display:flex;flex-direction:column;align-items:center;gap:3px}
 .strip .dot{width:28px;height:28px;border-radius:50%;display:flex;align-items:center;justify-content:center;border:2px solid rgba(255,255,255,.75)}
-.strip .dot.done{background:#facc15;border-color:#facc15;color:#111}
+.strip .dot.done{background:#fb923c;border-color:#fb923c;color:#111}
 .strip .dot.rest{border-style:dashed;border-color:rgba(255,255,255,.45)}
 .strip .dot.miss{background:rgba(0,0,0,.18)}
 .strip .today .dot{box-shadow:0 0 0 3px rgba(255,255,255,.45)}
@@ -182,7 +191,7 @@ nav.tabs a[aria-current="page"] svg{stroke-width:2.6}
 .medals{display:grid;grid-template-columns:repeat(2,1fr);gap:10px;list-style:none;margin:0;padding:0}
 .medal{text-align:center;padding:10px 4px;border-radius:14px;background:var(--surface-2)}
 .medal .m{width:54px;height:54px;margin:0 auto 6px;border-radius:50%;display:flex;align-items:center;justify-content:center;
-  background:conic-gradient(from 200deg,#fef08a,#facc15,#ca8a04,#fef08a);color:#111;box-shadow:inset 0 0 0 4px rgba(255,255,255,.35)}
+  background:conic-gradient(from 200deg,#fdba74,#f97316,#c2410c,#fdba74);color:#fff;box-shadow:inset 0 0 0 4px rgba(255,255,255,.35)}
 .medal .m svg{width:26px;height:26px}
 .medal.locked .m{background:var(--line);color:var(--muted);box-shadow:none}
 .medal b{display:block;font-size:.82em;line-height:1.2}
@@ -214,13 +223,13 @@ nav.tabs a[aria-current="page"] svg{stroke-width:2.6}
 @keyframes fall{to{transform:translate(var(--dx),105vh) rotate(var(--r));opacity:.9}}
 @keyframes pop{0%{transform:scale(.6);opacity:0}70%{transform:scale(1.08)}100%{transform:scale(1);opacity:1}}
 .pop{animation:pop .45s ease-out}
-.empty{text-align:center}.empty svg{width:110px;height:110px}
+.empty{text-align:center}.empty img{width:180px;height:auto;margin:0 auto 8px;display:block}
 /* Letra en negrita (activa por defecto; se apaga en Perfil) */
 :root[data-bold="1"] body{font-weight:600;line-height:1.6}
 :root[data-bold="1"] .muted,:root[data-bold="1"] .hint,:root[data-bold="1"] .small{font-weight:600}
 /* Modo sol: claro de alto contraste para leer bajo el sol */
 :root[data-theme="sun"]{--bg:#ffffff;--surface:#ffffff;--surface-2:#f2f2f2;--line:#6b6b6b;--text:#000000;--muted:#2b2b2b;
-  --accent:#facc15;--accent-text:#000000;--accent-ink:#6b3d00;--accent-line:#000000;--chart:#6b3d00;--fit:#3f3f46;--swoosh:#000000;
+  --accent:#9a3412;--accent-text:#ffffff;--accent-ink:#7c2d12;--accent-line:#000000;--chart:#9a3412;--wm-op:0;
   --ok:#0b5a24;--ok-bg:#e3f3e8;--warn:#5c3b00;--warn-bg:#fff4d6;--bad:#8a0f0f;--bad-bg:#fde4e4;--focus:#0b57d0;--shadow:none;--limb:#000000;color-scheme:light}
 :root[data-theme="sun"] .card,:root[data-theme="sun"] details,:root[data-theme="sun"] input,:root[data-theme="sun"] select,:root[data-theme="sun"] textarea,:root[data-theme="sun"] .chip span{border-color:#000}
 :root[data-theme="sun"] header.top,:root[data-theme="sun"] nav.tabs{border-color:#000}
@@ -231,6 +240,7 @@ nav.tabs a[aria-current="page"] svg{stroke-width:2.6}
 }
 /* Colores forzados del sistema */
 @media (forced-colors: active){
+  body::before{display:none}
   .ring svg{forced-color-adjust:none}
   .card,details,.stat,.medal,.banner,.chip span,.tb,.strip .dot{border:1px solid CanvasText}
   .chip input:checked + span{background:Highlight;color:HighlightText;forced-color-adjust:none}
@@ -245,49 +255,15 @@ fieldset.invalid .chips{outline:2px solid var(--bad);outline-offset:4px;border-r
 </head>
 <body>
 <a class="skip" href="#main">Saltar al contenido</a>
-<svg width="0" height="0" style="position:absolute" aria-hidden="true" focusable="false"><defs>
-    <linearGradient id="chispaGrad" x1="0" y1="0" x2="1" y2="1"><stop offset="0" stop-color="#fef08a"/><stop offset=".5" stop-color="#facc15"/><stop offset="1" stop-color="#ca8a04"/></linearGradient>
-  </defs><symbol id="chispa" viewBox="0 0 120 120">
-  
-  <!-- líneas de velocidad -->
-  <g stroke="#facc15" stroke-width="4" stroke-linecap="round" opacity=".55">
-    <line x1="6" y1="44" x2="24" y2="44"/><line x1="2" y1="58" x2="26" y2="58"/><line x1="8" y1="72" x2="22" y2="72"/>
-  </g>
-  <!-- brazos -->
-  <g style="stroke:var(--limb)" stroke-width="5" stroke-linecap="round" stroke-linejoin="round" fill="none">
-    <polyline points="46,54 34,62 30,52"/>
-    <polyline points="78,48 92,40 100,46"/>
-  </g>
-  <!-- piernas -->
-  <g style="stroke:var(--limb)" stroke-width="5.5" stroke-linecap="round" stroke-linejoin="round" fill="none">
-    <polyline points="56,88 46,98 34,96"/>
-    <polyline points="66,86 76,100 86,104"/>
-  </g>
-  <!-- tenis -->
-  <path d="M24 92 q2-6 10-4 l4 2 q2 4 -2 6 h-12 q-3 -1 0 -4z" fill="#fff" style="stroke:var(--limb)" stroke-width="2.5" stroke-linejoin="round"/>
-  <path d="M84 98 q4-4 10-1 l6 4 q2 4 -2 5 h-14 q-3-1 0-8z" fill="#fff" style="stroke:var(--limb)" stroke-width="2.5" stroke-linejoin="round"/>
-  <path d="M23 96.5 h15" stroke="#facc15" stroke-width="2.5" stroke-linecap="round"/>
-  <path d="M84 105.5 h15" stroke="#facc15" stroke-width="2.5" stroke-linecap="round"/>
-  <!-- cuerpo: rayo -->
-  <path d="M74 6 L38 60 H58 L48 96 L90 38 H68 L84 6 Z" fill="url(#chispaGrad)" stroke="#111111" stroke-width="3.5" stroke-linejoin="round"/>
-  <!-- cara -->
-  <ellipse cx="62" cy="34" rx="4" ry="5" fill="#1f2937"/><ellipse cx="74" cy="34" rx="4" ry="5" fill="#1f2937"/>
-  <circle cx="63.3" cy="32.2" r="1.5" fill="#fff"/><circle cx="75.3" cy="32.2" r="1.5" fill="#fff"/>
-  <path d="M61 43 q7 7 14 0" stroke="#1f2937" stroke-width="3" fill="none" stroke-linecap="round"/>
-  <!-- cinta de la frente -->
-  <path d="M62 20 L78 20" style="stroke:var(--limb)" stroke-width="7" stroke-linecap="round"/><path d="M62 20 L78 20" stroke="#fff" stroke-width="5" stroke-linecap="round"/><path d="M62 20 L52 14 M62 20 L50 24" stroke="#fff" stroke-width="3.5" stroke-linecap="round"/>
-</symbol></svg>
+
 <header class="top">
   <a class="brand" href="#hoy" aria-label="FitCoach, ir a Hoy">
-    <span id="logoSlot"><svg class="mascot" aria-hidden="true" focusable="false"><use href="#chispa"/></svg></span>
-    <svg class="wm" viewBox="0 0 236 62" aria-hidden="true" focusable="false">
-      <g font-family="-apple-system,BlinkMacSystemFont,'Segoe UI',Roboto,Arial,sans-serif" font-size="44" font-weight="900" font-style="italic" letter-spacing="-1.5" stroke="#111" stroke-width="4" stroke-linejoin="round" paint-order="stroke">
-        <text x="6" y="40" style="fill:var(--fit)">Fit</text><text x="64" y="40" fill="#facc15">Coach</text></g>
-      <path d="M34 56 Q120 40 232 50 Q120 46 34 60 Z" style="fill:var(--swoosh)"/>
-      <path d="M22 41 L6 56 H15 L8 62 L32 47 H22 L30 41 Z" fill="#facc15" stroke="#111" stroke-width="2" stroke-linejoin="round"/>
-    </svg>
+    <span id="logoSlot"><img class="mascot" src="./logo.webp" alt="" width="75" height="52"></span>
   </a>
-  <a class="avatar" id="avatarBtn" href="#perfil" aria-label="Perfil"></a>
+  <div class="top-actions">
+    <button class="iconbtn" id="refreshBtn" data-act="force-update" aria-label="Actualizar la app"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true" focusable="false"><path d="M21 12a9 9 0 1 1-2.6-6.4"/><path d="M21 3v6h-6"/></svg></button>
+    <a class="avatar" id="avatarBtn" href="#perfil" aria-label="Perfil"></a>
+  </div>
 </header>
 <div id="updateBar"></div>
 <main id="main" tabindex="-1"></main>
@@ -303,7 +279,7 @@ fieldset.invalid .chips{outline:2px solid var(--bad);outline-offset:4px;border-r
 <script>
 'use strict';
 /* FitCoach (versión de Pao) — un solo archivo, sin CDN, datos solo en este teléfono (localStorage). */
-const APP_BUILD = '2026.11.10-pao-4';
+const APP_BUILD = '2026.11.10-pao-5';
 const STORAGE_KEY = 'fitcoach_pao_v1';      // distinto al FitCoach Táctico: mismo dominio github.io, sin choques
 const PREFS_KEY = 'fitcoach_pao_prefs_v1';
 const LOGO_KEY = 'fitcoach_pao_logo_v1'; // imagen propia del logo (solo en este teléfono, fuera del respaldo)
@@ -341,7 +317,7 @@ function save(){
   try{ localStorage.setItem(STORAGE_KEY, JSON.stringify(state)); return true; }
   catch(e){ console.error('[save]', e); toast('No se pudo guardar en este teléfono. Haz un respaldo en Perfil.'); return false; }
 }
-function loadPrefs(){ const d = {theme:'auto',size:'normal',bold:true}; try{ return { ...d, ...(JSON.parse(localStorage.getItem(PREFS_KEY)) || {}) }; }catch(e){ return d; } }
+function loadPrefs(){ const d = {theme:'auto',size:'normal',bold:true,seenBuild:null}; try{ return { ...d, ...(JSON.parse(localStorage.getItem(PREFS_KEY)) || {}) }; }catch(e){ return d; } }
 function savePrefs(){ try{ localStorage.setItem(PREFS_KEY, JSON.stringify(prefs)); }catch(e){} applyPrefs(); }
 function applyPrefs(){
   const r = document.documentElement;
@@ -559,6 +535,23 @@ function weekReport(ws){
   L.push('', `_FitCoach ${APP_BUILD}_`);
   return L.join('\n');
 }
+/* Capturas del reloj: viven solo en memoria (no ocupan espacio); se envían con el informe */
+const SHOTS = new Map();
+let pendingShot = null;
+async function shareLog(log){
+  const text = sessionReport(log), title = `Sesión ${fmtDate(log.dateISO)}`, shot = SHOTS.get(log.id);
+  if(shot && navigator.share && navigator.canShare && navigator.canShare({ files:[shot] })){
+    try{ await navigator.share({ title, text, files:[shot] }); return; }
+    catch(e){ if(e && e.name === 'AbortError') return; }
+  } else if(shot){ toast('Este teléfono no deja enviar la imagen junto al texto. Envíala aparte.'); }
+  shareText(title, text, `sesion-${log.dateISO}.md`);
+}
+function shotField(id){
+  const f = id ? SHOTS.get(id) : pendingShot;
+  return `<div class="field"><span class="hint" style="margin-bottom:6px">Captura del reloj (opcional). Se envía con el informe; no se guarda en el teléfono.</span>
+    <div class="row"><label class="btn ghost" for="shotIn">${f ? 'Cambiar captura' : 'Adjuntar captura del reloj'}</label><input id="shotIn" type="file" accept="image/*" class="sr-only" data-for="${esc(id || '')}">
+    ${f ? `<span class="small" id="shotName">📎 ${esc(f.name || 'captura')}</span><button type="button" class="plain" data-act="shot-del" data-for="${esc(id || '')}">Quitar</button>` : ''}</div></div>`;
+}
 async function shareText(title, text, filename){
   try{
     if(navigator.share){ await navigator.share({ title, text }); return; }
@@ -732,7 +725,7 @@ function render(focus){
   const ring = $('#ringVal'); if(ring) requestAnimationFrame(() => requestAnimationFrame(() => { ring.style.strokeDashoffset = ring.dataset.target; }));
 }
 function customLogo(){ try{ return localStorage.getItem(LOGO_KEY); }catch(e){ return null; } }
-function mascotHtml(cls){ const c = customLogo(); return c ? `<img class="${cls}" src="${c}" alt="">` : `<svg class="${cls}" aria-hidden="true" focusable="false"><use href="#chispa"/></svg>`; }
+function mascotHtml(cls){ const c = customLogo(); return `<img class="${cls}" src="${c || './logo.webp'}" alt="">`; }
 function renderLogo(){ $('#logoSlot').innerHTML = mascotHtml('mascot'); }
 function setLogoFromFile(file){
   const out = $('#logoOut');
@@ -797,9 +790,46 @@ function heroHtml(t){
     <ul class="strip" aria-label="Días de esta semana">${strip}</ul>
   </section>`;
 }
+function raceCard(){
+  const d = daysToRace(); if(d == null || d < 0 || d > 7) return '';
+  const pr = state.profile, hora = pr.raceTime ? fmtClock(clockToMin(pr.raceTime)) : 'POR CONFIRMAR';
+  const items = d === 0 ? [
+    'Desayuno que ya conoces, 2 o 3 horas antes de la salida.',
+    'Llega unos 45 minutos antes: baño, número y calentar caminando 5 minutos.',
+    'Sal más lento de lo que quieres. Los primeros 10 minutos se sienten fáciles a propósito.',
+    'Camina en las subidas fuertes. Es parte del plan.',
+    'Bebe agua en las estaciones aunque no tengas mucha sed.',
+    'Si sientes mareo, dolor de pecho o un dolor que te hace cojear, para y busca a un adulto o al personal médico.',
+    'Al terminar: camina, bebe agua y come algo. ¡Lo lograste!'
+  ] : [
+    'Nada nuevo el día de la carrera: tenis, ropa, medias y desayuno ya probados.',
+    'Prepara la ropa y el número la noche antes.',
+    'Duerme bien estas noches; la noche antes a veces cuesta, y no pasa nada.',
+    'Esta semana se corre menos y más suave: es para llegar descansada.',
+    'Bebe agua normal durante el día; no hace falta tomar de más.',
+    'Mira la hora de salida y cuánto tardas en llegar.'
+  ];
+  return `<section class="card t-race" aria-labelledby="raceH"><div class="ttl">${tbadge('race')}<div><h2 id="raceH" style="margin:0">${d === 0 ? '¡Hoy es la carrera!' : 'Día de la carrera'}</h2>
+    <p class="small muted" style="margin:0">${esc(pr.raceName || 'Carrera')} · ${esc(fmtDateLong(pr.raceDate))} · salida ${esc(hora)}${d > 0 ? ` · faltan ${d} ${d === 1 ? 'día' : 'días'}` : ''}</p></div></div>
+    <ul class="steps" style="margin-top:10px">${items.map(x => `<li>${esc(x)}</li>`).join('')}</ul>
+    <p class="small muted" style="margin:8px 0 0">Meta: ${esc(pr.goal || 'terminarla')}. Disfrútala.</p></section>`;
+}
+/* Aviso de versión nueva (una sola vez por versión) */
+const CHANGES = [
+  'Logo nuevo de FitCoach y colores naranja y azul.',
+  'Botón ↻ arriba para buscar la versión nueva cuando quieras.',
+  'Puedes adjuntar la captura del reloj al enviar el informe.',
+  'La última semana aparece la tarjeta del día de la carrera.'
+];
+function versionNotice(){
+  if(!prefs.seenBuild){ prefs.seenBuild = APP_BUILD; savePrefs(); return ''; }
+  if(prefs.seenBuild === APP_BUILD) return '';
+  return `<section class="banner ok" aria-labelledby="verH"><h2 id="verH" style="font-size:1em;margin:0 0 4px">Versión nueva: qué cambió</h2>
+    <ul class="steps">${CHANGES.map(x => `<li>${esc(x)}</li>`).join('')}</ul><button class="ghost" style="margin-top:8px" data-act="seen-version">Entendido</button></section>`;
+}
 function viewHoy(){
   const t = todayISO(), p = planFor(t), done = logsOn(t);
-  let html = heroHtml(t);
+  let html = heroHtml(t) + versionNotice() + raceCard();
   if(!profileComplete()) html += `<div class="card accent"><h2>Empieza por tu perfil</h2><p>Toca el círculo de arriba a la derecha y escribe tu nombre, el de tu entrenador y la fecha de la carrera.</p><a class="btn" href="#perfil">Llenar mi perfil</a></div>`;
   html += backupBanner();
   const ty = p ? p.type : 'rest';
@@ -951,6 +981,7 @@ function viewRegistrar(){
       <div class="field"><label for="fHrMax">FC máxima</label><input id="fHrMax" type="text" inputmode="numeric" value="${d.hrMax ?? ''}"></div></div>
       <div class="field"><label for="fElev">Subida total (pies)</label><input id="fElev" type="text" inputmode="numeric" value="${d.elevFt ?? ''}"></div></details>
     <div class="field"><label for="fNotes">Notas <span class="hint">cómo te sentiste, ruta, clima…</span></label><textarea id="fNotes" style="min-height:90px">${esc(d.notes || '')}</textarea></div>
+    ${shotField(editing ? editing.id : null)}
     <div id="formAlerts" aria-live="polite"></div>
     <button type="submit" class="block">${editing ? 'Guardar cambios' : 'Guardar'}</button>
     ${editing ? `<div class="row" style="margin-top:12px"><button type="button" class="ghost" data-act="share-log" data-id="${esc(editing.id)}">Enviar a ${esc(coach())}</button><button type="button" class="danger" data-act="del-log" data-id="${esc(editing.id)}">Borrar</button></div>` : ''}
@@ -1004,6 +1035,7 @@ function bindLogForm(){
     if(e.target.name === 'rpe'){ const words = ['Nada','Muy suave','Suave','Fácil','Cómodo','Algo duro','Duro','Muy duro','Muy, muy duro','Casi el máximo','Máximo']; $('#rpeWord').textContent = words[+e.target.value]; }
     if(e.target.id === 'fPain') $('#painVal').textContent = `${e.target.value} de 10`;
     if(e.target.id === 'fileIn' && e.target.files[0]) importWatchFile(e.target.files[0]);
+    if(e.target.id === 'shotIn') return;
     updateLive();
   });
   $('#fPain')?.addEventListener('input', e => { $('#painVal').textContent = `${e.target.value} de 10`; });
@@ -1038,6 +1070,7 @@ function saveLog(){
   if(i >= 0) state.logs[i] = rec; else state.logs.push(rec);
   state.logs.sort((a,b) => (a.dateISO + (a.time||'')).localeCompare(b.dateISO + (b.time||'')));
   if(!save()) return;
+  if(pendingShot){ SHOTS.set(rec.id, pendingShot); pendingShot = null; }
   draft = null;
   history.pushState(null, '', `#registrar/${rec.id}`);
   render(true);
@@ -1062,7 +1095,7 @@ function showSaved(rec, isNew, fresh){
 function viewProgreso(){
   const t = todayISO();
   let html = `<h1>Progreso</h1>`;
-  if(!state.logs.length) return html + `<div class="card empty"><svg aria-hidden="true" focusable="false"><use href="#chispa"/></svg><p>Cuando registres tus primeras sesiones, aquí verás tus millas por semana, tu sesión más larga y cómo se sienten tus esfuerzos.</p><a class="btn" href="#registrar">Registrar una sesión</a></div>`;
+  if(!state.logs.length) return html + `<div class="card empty"><img src="./logo.webp" alt=""><p>Cuando registres tus primeras sesiones, aquí verás tus millas por semana, tu sesión más larga y cómo se sienten tus esfuerzos.</p><a class="btn" href="#registrar">Registrar una sesión</a></div>`;
   const weeks = []; const cur = weekStart(t);
   for(let i=7;i>=0;i--){ const ws = addDays(cur, -7*i); weeks.push({ ws, done: weekMiles(ws), plan: weekPlanMiles(ws) }); }
   const goalMin = 85;
@@ -1162,10 +1195,10 @@ function viewPerfil(){
     <div class="grid2" style="margin-top:10px"><div class="field"><label for="sName">Modelo</label><input id="sName" type="text"></div><div class="field"><label for="sMi">Millas que ya tienen</label><input id="sMi" type="text" inputmode="decimal" placeholder="0"></div></div>
     <button class="ghost" data-act="add-shoe">Agregar tenis</button></section>
   <section class="card"><h2>Imagen del logo</h2>
-    <div class="row" style="align-items:center"><span style="width:64px;height:64px;display:inline-flex">${mascotHtml('mascot')}</span>
-      <span class="small muted" style="flex:1">${customLogo() ? 'Usas una imagen tuya.' : 'Usas la mascota de FitCoach.'} El ícono del iPhone no cambia.</span></div>
+    <div class="row" style="align-items:center"><span style="width:96px;height:66px;display:inline-flex">${mascotHtml('mascot')}</span>
+      <span class="small muted" style="flex:1">${customLogo() ? 'Usas una imagen tuya.' : 'Usas el logo de FitCoach.'} El ícono del iPhone no cambia.</span></div>
     <div class="row" style="margin-top:10px"><label class="btn ghost" for="logoIn">Cambiar imagen</label><input id="logoIn" type="file" accept="image/*" class="sr-only">
-      ${customLogo() ? '<button class="plain" data-act="logo-reset">Volver a la mascota</button>' : ''}</div>
+      ${customLogo() ? '<button class="plain" data-act="logo-reset">Volver al logo</button>' : ''}</div>
     <p id="logoOut" class="small" aria-live="polite"></p></section>
   <section class="card"><h2>Pantalla</h2>
     <fieldset><legend>Tema</legend><div class="chips">${[['auto','Automático'],['light','Claro'],['dark','Oscuro'],['sun','Sol']].map(([v,l]) => `<label class="chip"><input type="radio" name="theme" value="${v}" ${prefs.theme===v ? 'checked' : ''}><span>${l}</span></label>`).join('')}</div></fieldset>
@@ -1181,7 +1214,7 @@ function viewPerfil(){
   </section>
   <section class="card"><h2>Instalar en el iPhone</h2><p class="small">En Safari toca <b>Compartir</b> y luego <b>Agregar a pantalla de inicio</b>. Ábrela siempre desde ese ícono.</p></section>
   <details><summary>Zona de peligro</summary><p class="small">Borra todo lo de este teléfono. Haz un respaldo antes.</p><button class="danger" data-act="reset">Borrar todos mis datos</button></details>
-  <p class="small muted">FitCoach · versión ${APP_BUILD} · <button class="plain" data-act="update" style="min-height:44px">Buscar actualización</button></p>`;
+  <p class="small muted">FitCoach · versión ${APP_BUILD}. Para buscar una versión nueva, toca ↻ arriba.</p>`;
 }
 
 /* ───────── Acciones ───────── */
@@ -1190,7 +1223,8 @@ document.addEventListener('click', async e => {
   if(b.dataset.step){ const el = $('#' + b.dataset.step); const v = (parseFloat(el.value) || 0) + parseFloat(b.dataset.d); el.value = Math.max(0, Math.min(14, v)); el.dispatchEvent(new Event('input', {bubbles:true})); return; }
   const act = b.dataset.act, log = b.dataset.id ? state.logs.find(l => l.id === b.dataset.id) : null;
   switch(act){
-    case 'share-log': if(log) shareText(`Sesión ${fmtDate(log.dateISO)}`, sessionReport(log), `sesion-${log.dateISO}.md`); break;
+    case 'share-log': if(log) shareLog(log); break;
+    case 'shot-del': { const id = b.dataset.for; if(id) SHOTS.delete(id); else pendingShot = null; const box = b.closest('.field'); if(box) box.outerHTML = shotField(id); toast('Captura quitada.'); break; }
     case 'copy-log': if(log) copyText(sessionReport(log), `sesion-${log.dateISO}.md`); break;
     case 'dl-log': if(log) shareFile(`sesion-${log.dateISO}.md`, sessionReport(log), 'text/markdown'); break;
     case 'share-week': shareText('Resumen de la semana', weekReport(b.dataset.ws), `semana-${b.dataset.ws}.md`); break;
@@ -1228,7 +1262,9 @@ document.addEventListener('click', async e => {
       if(confirm('¿Borrar TODOS los datos de este teléfono?') && confirm('Última confirmación: se borran perfil, plan y sesiones.')){ state = DEFAULT_STATE(); save(); draft = null; location.hash = '#perfil'; render(true); toast('Datos borrados.'); }
       break;
     case 'update': checkUpdate(true); break;
-    case 'logo-reset': try{ localStorage.removeItem(LOGO_KEY); }catch(e){} renderLogo(); render(false); toast('Volviste a la mascota.'); break;
+    case 'force-update': forceUpdate(); break;
+    case 'seen-version': prefs.seenBuild = APP_BUILD; savePrefs(); render(false); $('#hoyPlan')?.focus(); break;
+    case 'logo-reset': try{ localStorage.removeItem(LOGO_KEY); }catch(e){} renderLogo(); render(false); toast('Volviste al logo de FitCoach.'); break;
     case 'lvl': { sState().levels[b.dataset.id] = +b.dataset.lv; save(); render(false); toast(`Nivel ${b.dataset.lv}. ¡Bien!`); $('#h_' + b.dataset.id)?.focus(); break; }
     case 'str-finish': {
       const c = sState().cur; if(!c) break;
@@ -1254,6 +1290,10 @@ document.addEventListener('change', e => {
   if(t.id === 'prefBold'){ prefs.bold = t.checked; savePrefs(); return; }
   if(t.id === 'restoreIn' && t.files[0]) restoreBackup(t.files[0]);
   if(t.id === 'logoIn' && t.files[0]) setLogoFromFile(t.files[0]);
+  if(t.id === 'shotIn' && t.files[0]){ const id = t.dataset.for, f = t.files[0];
+    if(!/^image\//.test(f.type)){ toast('Ese archivo no es una imagen.'); return; }
+    if(id) SHOTS.set(id, f); else pendingShot = f;
+    const box = t.closest('.field'); if(box){ box.outerHTML = shotField(id); } toast('Captura adjuntada.'); $('#shotIn')?.focus(); }
 });
 document.addEventListener('submit', e => {
   if(e.target.id !== 'profForm') return; e.preventDefault();
@@ -1301,6 +1341,20 @@ function showUpdateBar(){
   $('#updateBar').innerHTML = `<div class="banner ok" style="margin:12px 16px 0" role="status"><p><b>Hay una versión nueva.</b></p><button data-act="apply-update">Actualizar ahora</button></div>`;
 }
 document.addEventListener('click', e => { if(e.target.closest('[data-act="apply-update"]') && swReg && swReg.waiting) swReg.waiting.postMessage({type:'SKIP_WAITING'}); });
+/* ↻: busca la versión nueva, borra solo la caché de esta app y recarga. No toca los datos (localStorage). */
+async function forceUpdate(){
+  const b = $('#refreshBtn');
+  if(!navigator.onLine){ toast('Sin conexión. Conéctate a internet y vuelve a tocar ↻.'); return; }
+  b.classList.add('spin'); b.disabled = true; b.setAttribute('aria-label','Actualizando…'); toast('Buscando la versión nueva…');
+  try{
+    if('serviceWorker' in navigator){
+      const reg = await navigator.serviceWorker.getRegistration();
+      if(reg){ await reg.update().catch(() => {}); if(reg.waiting) reg.waiting.postMessage({type:'SKIP_WAITING'}); }
+    }
+    if(window.caches){ const keys = await caches.keys(); await Promise.all(keys.filter(k => k.startsWith('fitcoach-pao-')).map(k => caches.delete(k))); }
+  }catch(e){ console.warn('[actualizar]', e); }
+  const u = new URL(location.href); u.searchParams.set('v', Date.now()); location.replace(u.toString());
+}
 async function checkUpdate(manual){
   if(!swReg){ if(manual) toast('Actualizaciones disponibles solo desde el ícono instalado.'); return; }
   try{ await swReg.update(); if(manual) toast(swReg.waiting ? 'Hay una versión nueva arriba.' : 'Ya tienes la última versión.'); }catch(e){ if(manual) toast('Sin conexión.'); }
@@ -1315,6 +1369,7 @@ if('serviceWorker' in navigator && location.protocol === 'https:'){
   navigator.serviceWorker.addEventListener('controllerchange', () => { if(reloaded) return; reloaded = true; location.reload(); });
 }
 
+try{ const u = new URL(location.href); if(u.searchParams.has('v')){ u.searchParams.delete('v'); history.replaceState(null, '', u.pathname + u.search + u.hash); } }catch(e){}
 renderLogo();
 window.addEventListener('hashchange', () => render(true));
 document.addEventListener('visibilitychange', () => { if(document.visibilityState === 'visible' && route.tab === 'hoy') render(false); });

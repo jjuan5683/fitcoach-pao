@@ -1,5 +1,5 @@
 // FitCoach (versión de Pao) — service worker
-// Build: 2026.11.10-pao-4 (va con APP_BUILD 2026.11.10-pao-4 de index.html)
+// Build: 2026.11.10-pao-5 (va con APP_BUILD 2026.11.10-pao-5 de index.html)
 // Nombre de caché propio: no toca la caché del FitCoach Táctico aunque estén en el mismo github.io.
 //
 // WHY THIS FILE LOOKS LIKE THIS
@@ -22,9 +22,9 @@
 // After editing this file, bump CACHE_VERSION. That byte change is what tells the browser a new
 // worker exists.
 
-const CACHE_VERSION = 'fitcoach-pao-v2026.11.10-4';
+const CACHE_VERSION = 'fitcoach-pao-v2026.11.10-5';
 const CACHE_PREFIX = 'fitcoach-pao-';
-const SHELL = ['./', './index.html', './manifest.json', './logo.svg', './mascot.svg',
+const SHELL = ['./', './index.html', './manifest.json', './logo.webp',
   './icons/icon-180.png', './icons/icon-192.png', './icons/icon-512.png', './icons/icon-512-maskable.png'];
 const HTML_KEY = './index.html';
 
